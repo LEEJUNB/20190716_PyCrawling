@@ -1,0 +1,18 @@
+class User():
+    species = "영장류"
+    
+    def __init__ (self, name, gender, city):
+        self.name = name
+        self.gender = gender
+        self.city = city
+    
+    def get_user_info(self):
+        return "여기를 채워주세요."
+    
+    def get_species(cls):
+        return "여기를 채워주세요."
+
+
+user = User("문성재", "남성", "수원")
+print(user.get_user_info())
+print(user.get_species())
