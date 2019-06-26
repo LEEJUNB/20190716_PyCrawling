@@ -16,6 +16,7 @@ def sum_2(x, *y) :
 
 sum_2(1,1,2,3,4,5) # [1,2,3,4,5] 출력
 
+# 가변 인자
 def sum_3(x, *y) :
     result = 0
     for i in y :
@@ -24,3 +25,8 @@ def sum_3(x, *y) :
 
 sum_3(1,1,2,3,4,5) # 15
 
+# 별칭 인자
+def sum_4(one,two) : 
+    return one + two
+
+print(sum_4(one = 1, two = 2)) # 3
