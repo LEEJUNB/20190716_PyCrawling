@@ -1,8 +1,11 @@
 import requests
 from bs4 import BeautifulSoup as bs
-from konlpy.tag import Okt # 말뭉치검색위해
+from konlpy.tag import Okt
+from openpyxl import load_workbook as load # 엑셀파일 다루기위해
 
 URL = "https://academy.nomadcoders.co/p/instaclone-2-0"
+SAVE_DIR = "c:/Users/last2018/dev/python/basic/11 crawler/rank.xlsx" #엑셀파일위치
+
 
 # http 상태코드를 통해 정상적으로 처리가 됐다면 작동하도록 만들자
 def get_tags() : 
@@ -22,7 +25,25 @@ def get_tags() :
         return tags_list
     else : 
         raise Exception('응답 코드가 다릅니다')
-                
+
+
+# 엑셀파일에 저장하는 함수
+def save_excel(rank) : # rank호출해서 처리함
+    wb = load(SAVE_DIR)
+    ws = wb.create_sheet('rank')
+    idx = 1 # A행에 쓸 인덱스
+    # 외부자원사용하기에 에러발생시 대처해야함
+    try : 
+        for k, v in rank[:15] :
+            # A행의 셀에 저장, 문자열(인덱스)
+            ws['A' + str(idx)] = "{}({})".format(k,v)
+            idx += 1
+        wb.save(SAVE_DIR)
+    except Exception as e : 
+        print(e)
+    finally : 
+        wb.close()
+
 # 함수호출 > tags_list반환 > 데이터 처리 함수 작성
 # 불러온 목록에서 명사를 추출
 # 추출한 명사 중 가장 많이 나온 명사 랭킹화 출력
@@ -40,10 +61,10 @@ def get_rank() :
     # 랭크구하기
     # 내림차순
     rank = sorted(rank.items(), key = lambda x:x[1], reverse = True)
-    
+    save_excel(rank)
     # 정렬 결과, 키 값 형태로 포맷
-    for k,v in rank[1:15]: # 1위 ~ 15위까지 한 줄
-        print("{}({})".format(k,v), 둥 = ' ')
+    # for k,v in rank[1:15]: # 1위 ~ 15위까지 한 줄
+    #     print("{}({})".format(k,v), 둥 = ' ')
 
 # get_rank()함수 호출
 if __name__ == "__main__" : 

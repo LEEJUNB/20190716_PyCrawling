@@ -14,3 +14,10 @@ finally :
 test_num = 10
 if test_num == 10 :
     raise Exception("test is 10.")
+
+"""
+Traceback (most recent call last):
+  File "main.py", line 16, in <module>
+    raise Exception("test is 10.")
+Exception: test is 10.
+"""
