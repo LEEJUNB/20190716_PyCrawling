@@ -1,10 +1,14 @@
-import requests
-from bs4 import BeautifulSoup as bs
-from konlpy.tag import Okt
-from openpyxl import load_workbook as load # 엑셀파일 다루기위해
+import requests  # html로 데이터 가져오기
+from bs4 import BeautifulSoup as bs # 가져온 데이터 분석
+from konlpy.tag import Okt # 한글화
+from openpyxl import load_workbook as load # 엑셀화
 
-URL = "https://academy.nomadcoders.co/p/instaclone-2-0"
-SAVE_DIR = "c:/Users/last2018/dev/python/basic/11 crawler/rank.xlsx" #엑셀파일위치
+Excel_pos = "c:/Users/last2018/dev/python/basic/crawler/test.xlsx" #엑셀파일위치
+
+#infoset_toc > div.infoSetCont_wrap > div.infoWrap_txt
+
+URL = "http://www.yes24.com/Product/Goods/25258515?Acode=101"
+SAVE_DIR = "c:/Users/last2018/dev/python/basic/crawler/test.xlsx" #엑셀파일위치
 
 
 # http 상태코드를 통해 정상적으로 처리가 됐다면 작동하도록 만들자
@@ -64,10 +68,9 @@ def get_rank() :
     rank = sorted(rank.items(), key = lambda x:x[1], reverse = True)
     save_excel(rank)
     # 정렬 결과, 키 값 형태로 포맷
-    for k,v in rank[1:15]: # 1위 ~ 15위까지 한 줄
+    for k,v in rank: # 1위 ~ 15위까지 한 줄
         print("{}({})".format(k,v), 둥 = ' ')
 
 # get_rank()함수 호출
 if __name__ == "__main__" : 
     get_rank()
-
