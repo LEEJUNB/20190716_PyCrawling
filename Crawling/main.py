@@ -8,12 +8,28 @@
     
 import requests
 from bs4 import BeautifulSoup as bs
+from openpyxl import load_workbook as load
 
 URL = "http://prod.danawa.com/info/?pcode=7162288&cate=11330083"
-rq = requests.get(URL)
+SAVE_DIR = "c:/Users/last2018/dev/python/basic/Crawling/Price.xlsx"
 
-soup = bs(rq.content,'html.parser')
-print(soup)
+def get_tags() : 
+    tags_list = []
+    rq = requests.get(URL)
+    print(rq.status_code)
+    if rq.status == 200 : 
+        soup = bs(rq.content,'html.parser')
+        li_list = soup.find_all('div',class_='prod_spec')
+        for li in li_list : 
+            ul = li.select('table > tbody > tr')
+            for l in ul : 
+                tags_list.append(l.get_text())
+        return tags_list
+    else : 
+        raise Exception('not 200')
 
-#productDescriptionArea > div > div.prod_spec > table > tbody
-
+def save_excel(get_tags) : 
+    wb = load(SAVE_DIR)
+    ws = wb.create_sheet('rank')
+    wb.save(SAVE_DIR)
+    wb.close()
