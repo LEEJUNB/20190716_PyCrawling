@@ -40,7 +40,7 @@ def save_excel(rank) : # rank호출해서 처리함
             ws['A' + str(idx)] = "{}({})".format(k,v)
             idx += 1
         wb.save(SAVE_DIR)
-    except Exception as e : 
+    except Exception as e :  
         print(e)
     finally : 
         wb.close()
