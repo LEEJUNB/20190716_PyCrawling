@@ -47,7 +47,6 @@ print(num_dict["key"])
 for k, v in num_dict.items():
     print(k,v)
 
-
 # key값들만 반환
 print(num_dict.keys())
 
