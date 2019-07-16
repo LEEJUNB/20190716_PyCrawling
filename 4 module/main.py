@@ -11,4 +11,3 @@ print(s(1,1))
 
 from package import pck as rename
 print(rename.sum(1,2))
-
